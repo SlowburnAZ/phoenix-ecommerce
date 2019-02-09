@@ -4,6 +4,7 @@ defmodule MangoWeb.Router do
   pipeline :frontend do
     plug MangoWeb.Plugs.LoadCustomer
     plug MangoWeb.Plugs.FetchCart
+    plug MangoWeb.Plugs.Locale
   end
 
   pipeline :browser do
@@ -44,6 +45,8 @@ defmodule MangoWeb.Router do
 
     get "/checkout", CheckoutController, :edit
     put "/checkout/confirm", CheckoutController, :update
+
+    resources "/tickets", TicketController, except: [:edit, :update, :delete]
   end
 
   # Other scopes may use custom stacks.

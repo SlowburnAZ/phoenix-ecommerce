@@ -58,4 +58,25 @@ defmodule Mango.CRMTest do
     customer2 = CRM.get_customer_by_credentials(valid_attrs)
     assert customer1.id == customer2.id
   end
+
+  describe "tickets" do
+    alias Mango.CRM.Ticket
+
+    @valid_attrs %{message: "some message", status: "some status", subject: "some subject"}
+    @update_attrs %{
+      message: "some updated message",
+      status: "some updated status",
+      subject: "some updated subject"
+    }
+    @invalid_attrs %{message: nil, status: nil, subject: nil}
+
+    def ticket_fixture(attrs \\ %{}) do
+      {:ok, ticket} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> CRM.create_ticket()
+
+      ticket
+    end
+  end
 end
